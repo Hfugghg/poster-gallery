@@ -2,7 +2,15 @@ import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const target=process.env.POSTER_PAGES_URL??'http://127.0.0.1:5182/poster-gallery/';
-const browser=await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL??'msedge',headless:true});
+let proxy;
+const proxyAddress=process.env.POSTER_BROWSER_PROXY??process.env.HTTPS_PROXY??process.env.https_proxy;
+if(proxyAddress&&!['localhost','127.0.0.1','[::1]'].includes(new URL(target).hostname)){
+  let address;try{address=new URL(proxyAddress);}catch{throw new Error('浏览器代理地址无效。');}
+  proxy={server:`${address.protocol}//${address.host}`};
+  if(address.username)proxy.username=decodeURIComponent(address.username);
+  if(address.password)proxy.password=decodeURIComponent(address.password);
+}
+const browser=await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL??'msedge',headless:true,...(proxy?{proxy}:{})});
 const page=await browser.newPage({viewport:{width:1280,height:900}});
 const errors=[];
 page.on('pageerror',error=>errors.push(error.message));
