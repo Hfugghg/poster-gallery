@@ -6,6 +6,12 @@ React + Three.js 的 3:4 海报展示组件。八款实体型材和 PBR 材质�
 
 > 上图由项目中的真实 3D 模型和材质渲染，构图页面与生成脚本一并保留，可重复生成。
 
+## 动态预览
+
+![完整海报画框推进至边角特写，轻微旋转并切换八款材质](docs/images/poster-preview.gif)
+
+完整画框 → 推进边角 → 轻微旋转与八款框型切换 → 回到全图，16 秒循环。由实际 Three.js 场景逐帧渲染。
+
 ## 材质细节
 
 | 材质 | 型材与表面 |
@@ -100,6 +106,9 @@ git push origin v1.0.0
 - `src/Scene.tsx`：相机、灯光、玻璃、旋转缩放和后处理。
 - `src/FrameModel.tsx`、`src/frameTextures.ts`：实际框体几何、材质与纹理。
 - `src/MaterialStudy.tsx`：README 材质图的独立构图。
+- `src/PreviewAnimation.tsx`：动态预览的确定性镜头与材质时间线。
 - `src/App.tsx`：完整展厅界面。
 - `scripts/`：构建、打包、截图与接入验证。
 - `.github/workflows/`：持续集成与自动发布。
+
+在开发服务器运行时，可执行 `node scripts/render-preview-gif.mjs` 重新生成动图。该离线脚本需要 FFmpeg 和 Playwright 可启动的 Edge；可通过 `FFMPEG_PATH`、`PLAYWRIGHT_CHANNEL`、`POSTER_PREVIEW_URL` 覆盖工具或地址。渲染页的高画质配置不影响展厅默认性能设置。
