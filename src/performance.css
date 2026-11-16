@@ -1,0 +1,59 @@
+.performance-panel {
+  position: absolute;
+  z-index: 8;
+  top: 50%;
+  right: 80px;
+  width: 300px;
+  max-height: calc(100svh - 60px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #657456 transparent;
+  padding: 19px;
+  border: 1px solid #adbc962e;
+  border-radius: 9px;
+  background: #222a1ef2;
+  box-shadow: 0 14px 45px #0004;
+  backdrop-filter: blur(20px);
+  transform: translateY(-50%);
+  color-scheme: dark;
+}
+
+.performance-header { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 18px; }
+.performance-header h2 { margin: 0; color: #e0e9d4; font-size: 13px; line-height: 1.5; font-weight: 500; }
+.performance-header .icon-button { width: 27px; height: 27px; border-color: transparent; background: transparent; }
+.performance-header .icon-button:hover { background: #71865926; border-color: #9caf8133; }
+.performance-presets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; padding: 4px; margin-bottom: 19px; border: 1px solid #9aaa8120; border-radius: 6px; background: #141c10a6; }
+.performance-presets button { padding: 8px 4px; border: 1px solid transparent; border-radius: 3px; background: transparent; color: #9fae8e; font-size: 11px; line-height: 1.4; transition: background .18s, color .18s; }
+.performance-presets button:hover { color: #e4ecd9; background: #9aae7e12; }
+.performance-presets button.active { color: #e1edce; border-color: #a7bb8333; background: #6d83503b; }
+.performance-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 15px; margin: 17px 0; }
+.performance-row > label { color: #c0ccb2; font-size: 11px; line-height: 1.6; }
+.performance-row output { color: #b1c49b; font-size: 10px; font-variant-numeric: tabular-nums; }
+.performance-select { width: 100%; min-height: 33px; padding: 6px 10px; border: 1px solid #9bb37c33; border-radius: 4px; color: #cfddbf; background: #171f12; font-family: inherit; font-size: 11px; cursor: pointer; }
+.performance-select:hover { border-color: #abc58a66; }
+.performance-select option { color: #d7e1ca; background: #222c1b; }
+.performance-row input[type='range'] { flex: 0 0 100%; width: 100%; height: 18px; margin: 0; padding: 0; background: transparent; accent-color: var(--accent, #d8e4b5); cursor: pointer; }
+.performance-row input[type='range']:disabled { cursor: not-allowed; opacity: .4; }
+.performance-check { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0; color: #c0ccb2; font-size: 11px; line-height: 1.7; cursor: pointer; }
+.performance-check input[type='checkbox'] { flex-shrink: 0; width: 14px; height: 14px; margin: 2px 0 0; padding: 0; accent-color: var(--accent, #d8e4b5); cursor: pointer; }
+.performance-check input:disabled { opacity: .4; cursor: not-allowed; }
+.performance-check:has(input:disabled) { opacity: .6; cursor: not-allowed; }
+.performance-check span { flex: 1; }
+.performance-note { margin: 17px 0 0; padding-top: 14px; border-top: 1px solid #9bad811f; color: #91a37e; font-size: 10px; line-height: 1.8; }
+.performance-reset { width: 100%; min-height: 33px; padding: 7px 12px; margin-top: 15px; border: 1px solid #adc48b33; border-radius: 4px; color: #becfa8; background: #8ca56b0f; font-size: 11px; }
+.performance-reset:hover { color: #e4efd7; border-color: #adc48b70; background: #8ca56b26; }
+.performance-panel input:focus-visible, .performance-panel select:focus-visible, .performance-panel button:focus-visible { outline: 2px solid var(--accent, #d8e4b5); outline-offset: 3px; }
+
+@media (max-width: 600px) {
+  .performance-panel { right: 56px; width: min(300px, calc(100vw - 76px)); max-height: calc(100svh - 280px); padding: 16px; border-radius: 7px; }
+  .performance-header { margin-bottom: 13px; }
+  .performance-header h2 { font-size: 12px; }
+  .performance-presets { margin-bottom: 15px; }
+  .performance-row { margin: 14px 0; }
+  .performance-check { margin: 12px 0; }
+}
+
+@media (max-height: 580px) and (min-width: 601px) {
+  .performance-panel { max-height: calc(100svh - 150px); top: calc(50% - 35px); }
+}

@@ -1,0 +1,37 @@
+import { chromium } from '@playwright/test';
+import { mkdir, writeFile } from 'node:fs/promises';
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:1200,height:900}});
+const errors=[];page.on('pageerror',error=>errors.push(error.message));page.on('console',message=>{if(message.type()==='error'&&!message.text().includes('favicon'))errors.push(message.text());});
+try{
+ await mkdir('artifacts/package',{recursive:true});
+ await page.goto('http://127.0.0.1:5181',{waitUntil:'networkidle'});
+ await page.locator('[data-testid=status]').filter({hasText:'已就绪 1'}).waitFor({timeout:60000});
+ const sentinel=await page.locator('.host-sentinel').evaluate(el=>({height:getComputedStyle(el).height,color:getComputedStyle(el).color}));
+ if(sentinel.height!=='37px'||sentinel.color!=='rgb(23, 45, 67)')throw new Error('Host styling changed');
+ if(await page.locator('style').count()>0)throw new Error('Unexpected global CSS injected');
+ if(await page.evaluate(()=>localStorage.length)!==0)throw new Error('Component unexpectedly wrote localStorage');
+ await page.getByLabel('边框材质').selectOption('walnut');
+ await page.locator('[data-testid=status]').filter({hasText:'walnut'}).waitFor();
+ await page.getByLabel('画质预设').selectOption('fast');
+ await page.locator('[data-testid=status]').filter({hasText:'fast'}).waitFor();
+ await page.mouse.move(600,350);await page.mouse.down();await page.mouse.move(710,390,{steps:12});await page.mouse.up();
+ await page.mouse.wheel(0,200);await page.waitForTimeout(800);
+ const canvas=page.locator('canvas');const zoom=Number(await canvas.getAttribute('data-zoom'));
+ if(zoom<8.5)throw new Error('Embedded wheel zoom failed');
+ await page.getByRole('button',{name:'切换图片'}).click();
+ await page.locator('[data-testid=status]').filter({hasText:'已就绪 2'}).waitFor({timeout:30000});
+ const nextZoom=Number(await canvas.getAttribute('data-zoom'));
+ if(Math.abs(nextZoom-zoom)>.15)throw new Error('Poster replacement reset the view');
+ await page.getByRole('button',{name:'外部重置'}).click();await page.waitForTimeout(800);
+ if(Math.abs(Number(await canvas.getAttribute('data-zoom'))-7.65)>.1)throw new Error('Imperative reset failed');
+ const event=page.waitForEvent('download');await page.getByRole('button',{name:'导出 PNG'}).click();
+ await (await event).saveAs('artifacts/package/consumer-export.png');
+ await page.screenshot({path:'artifacts/package/consumer-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.waitForTimeout(800);
+ await page.screenshot({path:'artifacts/package/consumer-mobile.png'});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw new Error('Embedded mobile overflow');
+ if(errors.length)throw new Error(errors.join('\n'));
+ await writeFile('artifacts/package/verification.json',JSON.stringify({passed:true,checks:['installed tgz import','no host style pollution','no storage writes','controlled frame and quality','drag and wheel','poster replacement retains view','imperative reset','PNG export','mobile layout'],consoleErrors:errors},null,2));
+ console.log('PASS: installed package works inside an independent React consumer.');
+}finally{await browser.close();}
