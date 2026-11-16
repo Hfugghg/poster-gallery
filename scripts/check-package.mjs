@@ -8,6 +8,11 @@ import { renderToString } from 'react-dom/server';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const kit = path.join(root, 'package-kit');
 const manifest = JSON.parse(await readFile(path.join(kit, 'package.json'), 'utf8'));
+assert.equal(manifest.license,'MIT','Component package must declare its license.');
+for(const name of ['LICENSE','THIRD_PARTY_NOTICES.md']){
+  const original=await readFile(path.join(root,name),'utf8');
+  assert.equal(await readFile(path.join(kit,name),'utf8'),original,`Package must preserve ${name} verbatim.`);
+}
 function resolveEntry(relative) {
   assert.equal(typeof relative, 'string', 'Package entry must be declared.');
   const resolved = path.resolve(kit, relative);

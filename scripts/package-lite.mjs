@@ -36,14 +36,15 @@ export async function createLitePackage({staging=false}={}){
   }
   for(const name of ['Basic.tsx','Controlled.tsx'])await copyFile(path.join(root,'package-kit/examples',name),path.join(output,'examples',name));
   await copyFile(path.join(root,'package-kit/tsconfig.json'),path.join(output,'tsconfig.json'));
-  manifest.files=['lib/poster-frame.js','types','README.md'];
+  for(const name of ['LICENSE','THIRD_PARTY_NOTICES.md'])await copyFile(path.join(root,'package-kit',name),path.join(output,name));
+  manifest.files=['lib/poster-frame.js','types','README.md','LICENSE','THIRD_PARTY_NOTICES.md'];
   await writeFile(path.join(output,'package.json'),JSON.stringify(manifest,null,2)+'\n');
   let readme=await readFile(path.join(root,'package-kit/README.md'),'utf8');
   const optionalStart=readme.indexOf('## 可选示例海报');
   if(optionalStart!==-1){const next=readme.indexOf('\n## ',optionalStart+4);readme=readme.slice(0,optionalStart)+(next===-1?'':readme.slice(next+1));}
   readme=readme.replace(/^# React 3D 海报展框组件包/m,'# React 3D 海报展框组件包 · 轻量版\n\n本包保留组件源码、类型声明、预构建代码和两个 React 接入示例，不附带 PNG 海报。请使用自己的图片；示例中的 `/posters/poster-1.png` 需自行替换。配套 `.tgz` 仅含运行代码、类型和说明，源码位于 ZIP 的 `src/poster-frame`。\n\nThree.js、React 及渲染相关依赖在安装时获取，未打入本压缩包；压缩包大小不等于依赖安装体积或网页首次加载体积。');
   readme=readme.replace(/^可将包中的 `examples\/posters`[^\n]*$/m,'轻量版不附带示例海报，请将自己的图片放在 `public/posters/poster-1.png`，或把 `posterSrc` 换成自己的图片地址。组件入口不加载演示素材，不要求复制原展厅页面或全局 CSS。');
-  readme=readme.replace(/atelier-poster-frame-1\.0\.0\.tgz/g,`atelier-poster-frame-${manifest.version}.tgz`);
+  readme=readme.replace(/atelier-poster-frame-\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?\.tgz/g,`atelier-poster-frame-${manifest.version}.tgz`);
   await writeFile(path.join(output,'README.md'),readme);
   return output;
 }

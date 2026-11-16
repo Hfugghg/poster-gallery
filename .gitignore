@@ -13,6 +13,8 @@ package-kit/src/
 package-kit/examples/posters/
 package-kit/examples/generatePosters.ts
 package-kit/PACKAGING-PLAN.md
+package-kit/LICENSE
+package-kit/THIRD_PARTY_NOTICES.md
 *.tgz
 *.zip
 .env

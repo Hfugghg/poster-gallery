@@ -1,7 +1,7 @@
 {
   "name": "atelier-poster-gallery",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
@@ -34,5 +34,18 @@
     "typescript": "~5.9.3",
     "vite": "^7.2.0",
     "@playwright/test": "^1.56.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Hfugghg",
+    "url": "https://github.com/Hfugghg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hfugghg/poster-gallery.git"
+  },
+  "homepage": "https://github.com/Hfugghg/poster-gallery#readme",
+  "bugs": {
+    "url": "https://github.com/Hfugghg/poster-gallery/issues"
   }
 }

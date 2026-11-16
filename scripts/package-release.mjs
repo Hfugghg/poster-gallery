@@ -39,8 +39,9 @@ const packed = JSON.parse(execFileSync(process.execPath, [findNpmCli(), 'pack', 
 }));
 assert.equal(packed.length, 1, 'Expected one npm archive.');
 for (const file of packed[0].files) {
-  assert.ok(file.path === 'package.json' || file.path === 'README.md' || file.path === 'lib/poster-frame.js' || /^types\/[^/]+\.d\.ts$/.test(file.path), `Unexpected npm archive content: ${file.path}`);
+  assert.ok(['package.json','README.md','LICENSE','THIRD_PARTY_NOTICES.md','lib/poster-frame.js'].includes(file.path) || /^types\/[^/]+\.d\.ts$/.test(file.path), `Unexpected npm archive content: ${file.path}`);
 }
+for(const name of ['LICENSE','THIRD_PARTY_NOTICES.md'])assert.ok(packed[0].files.some(file=>file.path===name),`Release archive is missing ${name}.`);
 const tgz = path.resolve(releases, packed[0].filename);
 assert.equal(path.dirname(tgz), path.resolve(releases), 'Archive must be written directly into releases/.');
 

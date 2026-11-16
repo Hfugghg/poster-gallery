@@ -7,7 +7,7 @@
 目标项目需要使用 **React 19**。将压缩包中的 `atelier-poster-frame-1.0.0.tgz` 复制到目标项目根目录，执行：
 
 ```sh
-npm install ./atelier-poster-frame-1.0.0.tgz
+npm install ./atelier-poster-frame-1.0.1.tgz
 ```
 
 组件以 ESM 形式提供，附带 TypeScript 类型。`react`、`react-dom` 和 `three` 是 peer dependencies；项目应使用 React / React DOM 19，以及 `three ^0.181.0`（即 `0.181.x`）。R3F、drei、后处理等运行依赖由包声明管理。此文件是本地安装包，无需发布到 npm。
@@ -157,3 +157,9 @@ export default function Preview() {
 - 需要浏览器支持 WebGL2，并开启硬件加速。上传、错误提示和加载提示可由宿主应用通过回调实现。
 - Next.js 中在客户端组件文件顶部添加 `'use client'`；如果宿主渲染环境仍尝试在服务端加载 WebGL 相关模块，可通过 `next/dynamic` 设置 `ssr: false` 后使用。
 - 原展厅的键盘快捷键、帮助弹窗、沉浸模式和页面级上传 UI 不属于基础组件；可在宿主页面按需添加。
+
+## 开源协议
+
+组件原创代码及仓库提供的程序化演示素材采用 MIT License，Copyright © 2026 Hfugghg。允许商用、修改与再分发，分发时须保留版权及许可声明。完整条款见包内 `LICENSE` 或[仓库许可证](https://github.com/Hfugghg/poster-gallery/blob/main/LICENSE)。
+
+包内 `THIRD_PARTY_NOTICES.md` 保留主要依赖的许可和版权信息；第三方依赖继续适用各自许可证。用户自行提供的海报保留其原有授权。

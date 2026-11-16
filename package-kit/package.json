@@ -1,15 +1,56 @@
 {
-  "name":"@atelier/poster-frame",
-  "version":"1.0.0",
-  "description":"Reusable React + Three.js 3:4 poster frame with eight PBR materials and adjustable performance",
-  "type":"module",
-  "main":"./lib/poster-frame.js",
-  "module":"./lib/poster-frame.js",
-  "types":"./types/library.d.ts",
-  "exports":{".":{"types":"./types/library.d.ts","import":"./lib/poster-frame.js"}},
-  "sideEffects":false,
-  "files":["lib","types","src","examples","README.md"],
-  "peerDependencies":{"react":"^19.0.0","react-dom":"^19.0.0","three":"^0.181.0"},
-  "dependencies":{"@react-three/fiber":"9.8.2","@react-three/drei":"10.7.9","@react-three/postprocessing":"3.2.2","postprocessing":"6.39.6"},
-  "keywords":["react","three","poster","3d","frame"]
+  "name": "@atelier/poster-frame",
+  "version": "1.0.1",
+  "description": "Reusable React + Three.js 3:4 poster frame with eight PBR materials and adjustable performance",
+  "type": "module",
+  "main": "./lib/poster-frame.js",
+  "module": "./lib/poster-frame.js",
+  "types": "./types/library.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/library.d.ts",
+      "import": "./lib/poster-frame.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "lib",
+    "types",
+    "src",
+    "examples",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.181.0"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.8.2",
+    "@react-three/drei": "10.7.9",
+    "@react-three/postprocessing": "3.2.2",
+    "postprocessing": "6.39.6"
+  },
+  "keywords": [
+    "react",
+    "three",
+    "poster",
+    "3d",
+    "frame"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Hfugghg",
+    "url": "https://github.com/Hfugghg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hfugghg/poster-gallery.git"
+  },
+  "homepage": "https://github.com/Hfugghg/poster-gallery#readme",
+  "bugs": {
+    "url": "https://github.com/Hfugghg/poster-gallery/issues"
+  }
 }

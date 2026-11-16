@@ -1,5 +1,9 @@
 # 3D Poster Frame
 
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/Hfugghg/poster-gallery/actions/workflows/ci.yml/badge.svg)](https://github.com/Hfugghg/poster-gallery/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Hfugghg/poster-gallery)](https://github.com/Hfugghg/poster-gallery/releases/latest)
+
 React + Three.js 的 3:4 海报展示组件。八款实体型材和 PBR 材质，支持鼠标视差、按住拖动旋转、滚轮缩放、玻璃透射及 PNG 导出。
 
 ![八种材质框角沿斜线错位叠放，展示实际倒角、木纹、石纹与古铜浮雕](docs/images/material-study.png)
@@ -52,7 +56,7 @@ npm run dev
 从 [Releases](https://github.com/Hfugghg/poster-gallery/releases) 下载轻量 `.tgz` 安装包，或下载源码 ZIP。发布包不附带海报 PNG，也不捆绑 Three.js 等外部依赖。
 
 ```sh
-npm install ./atelier-poster-frame-1.0.0.tgz
+npm install ./atelier-poster-frame-1.0.1.tgz
 ```
 
 目标项目需要 React 19、React DOM 19；`three` 的兼容版本为 `0.181.x`。其他渲染依赖由组件包声明管理。
@@ -94,11 +98,13 @@ npm run package:release
 普通提交和 Pull Request 会通过 Actions 检查类型、构建展厅及组件。发布时让 `package-kit/package.json` 的版本与标签保持一致：
 
 ```sh
-git tag v1.0.0
-git push origin v1.0.0
+git tag v1.0.1
+git push origin v1.0.1
 ```
 
 发布工作流将轻量 `.tgz` 和源码 ZIP 上传到 GitHub Releases，通过内置 `GITHUB_TOKEN` 授权，无需额外发布密钥。此流程不向 npmjs.com 发布。
+
+示例中的标签应替换为待发布版本号，不要重复推送已有版本标签。
 
 ## 主要文件
 
@@ -112,3 +118,13 @@ git push origin v1.0.0
 - `.github/workflows/`：持续集成与自动发布。
 
 在开发服务器运行时，可执行 `node scripts/render-preview-gif.mjs` 重新生成动图。该离线脚本需要 FFmpeg 和 Playwright 可启动的 Edge；可通过 `FFMPEG_PATH`、`PLAYWRIGHT_CHANNEL`、`POSTER_PREVIEW_URL` 覆盖工具或地址。渲染页的高画质配置不影响展厅默认性能设置。
+
+## 开源协议
+
+采用 [MIT License](LICENSE)，Copyright © 2026 [Hfugghg](https://github.com/Hfugghg)。可用于个人或商业项目，允许修改和再分发；分发时须保留版权及许可声明。完整条款以许可证原文为准。
+
+本仓库原创代码、程序生成的默认海报，以及项目渲染的展示图与 GIF 均适用该许可证。用户自行提供或上传的海报保留其原有授权。
+
+第三方依赖保留各自许可证，详见 [第三方声明](THIRD_PARTY_NOTICES.md)。组件 `.tgz` 和轻量源码 ZIP 都包含 `LICENSE` 与第三方声明。更新依赖后可运行 `node scripts/generate-notices.mjs` 重新生成主要依赖的声明。
+
+欢迎通过 [Issues](https://github.com/Hfugghg/poster-gallery/issues) 提交问题或改进建议，通过 Pull Request 贡献代码；提交的贡献适用本项目 MIT 许可证。
