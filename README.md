@@ -6,9 +6,15 @@
 
 React + Three.js 的 3:4 海报展示组件。八款实体型材和 PBR 材质，支持鼠标视差、按住拖动旋转、滚轮缩放、玻璃透射及 PNG 导出。
 
+[在线体验](https://hfugghg.github.io/poster-gallery/) · [下载组件](https://github.com/Hfugghg/poster-gallery/releases/latest)
+
 ![八种材质框角沿斜线错位叠放，展示实际倒角、木纹、石纹与古铜浮雕](docs/images/material-study.png)
 
 > 上图由项目中的真实 3D 模型和材质渲染，构图页面与生成脚本一并保留，可重复生成。
+
+## 在线展示
+
+直接打开 **[GitHub Pages 展厅](https://hfugghg.github.io/poster-gallery/)**，无需本地安装。图片在浏览器内处理，演示站不提供后端上传存储。
 
 ## 动态预览
 
@@ -103,6 +109,8 @@ git push origin v1.0.1
 ```
 
 发布工作流将轻量 `.tgz` 和源码 ZIP 上传到 GitHub Releases，通过内置 `GITHUB_TOKEN` 授权，无需额外发布密钥。此流程不向 npmjs.com 发布。
+
+展示网站由 [Pages 工作流](.github/workflows/pages.yml) 部署：`main` 更新后自动构建 `dist` 并发布到 GitHub Pages。构建使用 Pages 提供的子路径，资源和图标不会请求到根域的错误地址；本地开发默认仍使用 `/`。
 
 示例中的标签应替换为待发布版本号，不要重复推送已有版本标签。
 
